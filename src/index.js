@@ -7,17 +7,18 @@ import reportWebVitals from './reportWebVitals';
 import ContextProvider from './ContextProvider';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    // <React.StrictMode>
-    <ContextProvider>
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<App />}>
-                    <Route path="/:filter" element={<App />}></Route>
-                </Route>
-            </Routes>
-        </BrowserRouter>
-    </ContextProvider>,
-    // </React.StrictMode>,
+    <React.StrictMode>
+        <ContextProvider>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<App />}>
+                        <Route path="/:filter" element={<App />}></Route>
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+        </ContextProvider>
+        ,
+    </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function

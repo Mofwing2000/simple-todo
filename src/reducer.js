@@ -41,11 +41,25 @@ const reducer = (state = taskList, action) => {
             return [...newTasksState];
         }
         case TOGGLE_ALL_TASKS: {
-            const newTasksState = [...state];
-            const isCompletedAll = newTasksState.every((task) => task.isCompleted === true);
-            if (isCompletedAll) newTasksState.forEach((task) => (task.isCompleted = false));
-            else newTasksState.forEach((task) => (task.isCompleted = true));
-            return [...newTasksState];
+            // ***Note: Not pure -> Cause side effect when enable strict mode
+            // const newTasksState = [...state];
+            // const isCompletedAll = newTasksState.every((task) => task.isCompleted === true);
+            // if (isCompletedAll) newTasksState.forEach((task) => (task.isCompleted = false));
+            // else newTasksState.forEach((task) => (task.isCompleted = true));
+            // return [...newTasksState];
+
+            const isCompletedAll = state.every((task) => task.isCompleted === true);
+            if (isCompletedAll) {
+                const newTasksState = state.map((task) => {
+                    return { ...task, isCompleted: false };
+                });
+                return [...newTasksState];
+            } else {
+                const newTasksState = state.map((task) => {
+                    return { ...task, isCompleted: true };
+                });
+                return [...newTasksState];
+            }
         }
         default:
             return [...state];

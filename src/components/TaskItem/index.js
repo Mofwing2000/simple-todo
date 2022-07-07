@@ -92,8 +92,10 @@ const TaskItem = (props) => {
                     setEditingDone();
                 }}
                 onKeyPress={(e) => {
-                    console.log(e.key);
                     taskInputOnKeyPress(e);
+                    if (e.charCode === 13) {
+                        setEditingDone();
+                    }
                 }}
             />
         </div>

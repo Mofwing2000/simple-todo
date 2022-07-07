@@ -17,7 +17,6 @@ const reducer = (state = taskList, action) => {
             return [...newTasksState];
         }
         case UPDATE_TASK: {
-            console.log(action.payload.index);
             const updatedTask = {
                 ...state[action.payload.index],
                 ...action.payload.values,

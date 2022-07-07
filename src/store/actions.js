@@ -1,7 +1,6 @@
 import { ADD_TASK, UPDATE_TASK, DELETE_TASK, DELETE_TASKS, TOGGLE_ALL_TASKS } from './constants';
 
 export const addTask = (task) => {
-    console.log('add');
     return {
         type: ADD_TASK,
         payload: task,

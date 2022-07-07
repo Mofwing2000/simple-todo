@@ -55,7 +55,7 @@ const TaskItem = (props) => {
     return (
         <div className={`flex items-center border-b border-solid border-gray-200 ${isRender ? 'flex' : 'hidden'}`}>
             <div
-                className="task-item relative flex justify-between items-center w-full py-4 pl-2 pr-4 group"
+                className="task-item relative flex justify-between items-center w-full py-[17px] pl-2 pr-4 group"
                 ref={taskItemRef}
                 onDoubleClick={handleTaskDoubleClick}
             >
@@ -80,7 +80,7 @@ const TaskItem = (props) => {
                 </Button>
             </div>
             <input
-                className="task-edit hidden justify-center items-center ml-14 mr-0.5 h-full w-full text-taskItem px-4 py-3 outline-none border-solid border-gray-400 border shadow-customInner"
+                className="task-edit hidden justify-center items-center ml-14 mr-0.5 h-full w-full text-taskItem px-4 py-4 outline-none border-solid border-gray-400 border shadow-customInner"
                 ref={taskInputRef}
                 defaultValue={taskTitle}
                 onInput={(e) => {

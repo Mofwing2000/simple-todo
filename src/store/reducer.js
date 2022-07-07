@@ -2,16 +2,7 @@ import { ADD_TASK, DELETE_TASK, DELETE_TASKS, UPDATE_TASK, TOGGLE_ALL_TASKS } fr
 
 const TODO_LOCAL_STORAGE = 'TODO_LOCAL_STORAGE';
 
-export const taskList = JSON.parse(localStorage.getItem(TODO_LOCAL_STORAGE)) || [
-    {
-        title: 'Code',
-        isCompleted: false,
-    },
-    {
-        title: 'Code sdfasd',
-        isCompleted: true,
-    },
-];
+export const taskList = JSON.parse(localStorage.getItem(TODO_LOCAL_STORAGE)) || [];
 
 const reducer = (state = taskList, action) => {
     switch (action.type) {

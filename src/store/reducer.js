@@ -1,6 +1,8 @@
 import { ADD_TASK, DELETE_TASK, DELETE_TASKS, UPDATE_TASK, TOGGLE_ALL_TASKS } from './constants';
 
-export const taskList = [
+const TODO_LOCAL_STORAGE = 'TODO_LOCAL_STORAGE';
+
+export const taskList = JSON.parse(localStorage.getItem(TODO_LOCAL_STORAGE)) || [
     {
         title: 'Code',
         isCompleted: false,
@@ -14,12 +16,14 @@ export const taskList = [
 const reducer = (state = taskList, action) => {
     switch (action.type) {
         case ADD_TASK: {
-            return [
+            const newTasksState = [
                 ...state,
                 {
                     ...action.payload,
                 },
             ];
+            localStorage.setItem(TODO_LOCAL_STORAGE, JSON.stringify([...newTasksState]));
+            return [...newTasksState];
         }
         case UPDATE_TASK: {
             console.log(action.payload.index);
@@ -29,15 +33,18 @@ const reducer = (state = taskList, action) => {
             };
             const newTasksState = [...state];
             newTasksState.splice(action.payload.index, 1, updatedTask);
+            localStorage.setItem(TODO_LOCAL_STORAGE, JSON.stringify([...newTasksState]));
             return [...newTasksState];
         }
         case DELETE_TASK: {
             const newTasksState = [...state];
             newTasksState.splice(action.payload, 1);
+            localStorage.setItem(TODO_LOCAL_STORAGE, JSON.stringify([...newTasksState]));
             return [...newTasksState];
         }
         case DELETE_TASKS: {
             const newTasksState = state.filter((task, index) => !action.payload.includes(index));
+            localStorage.setItem(TODO_LOCAL_STORAGE, JSON.stringify([...newTasksState]));
             return [...newTasksState];
         }
         case TOGGLE_ALL_TASKS: {
@@ -53,15 +60,18 @@ const reducer = (state = taskList, action) => {
                 const newTasksState = state.map((task) => {
                     return { ...task, isCompleted: false };
                 });
+                localStorage.setItem(TODO_LOCAL_STORAGE, JSON.stringify([...newTasksState]));
                 return [...newTasksState];
             } else {
                 const newTasksState = state.map((task) => {
                     return { ...task, isCompleted: true };
                 });
+                localStorage.setItem(TODO_LOCAL_STORAGE, JSON.stringify([...newTasksState]));
                 return [...newTasksState];
             }
         }
         default:
+            localStorage.setItem(TODO_LOCAL_STORAGE, JSON.stringify([...state]));
             return [...state];
     }
 };

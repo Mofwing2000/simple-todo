@@ -1,4 +1,4 @@
-import { ADD_TASK, DELETE_TASK, DELETE_TASKS, UPDATE_TASK, TOGGLE_ALL_TASKS } from './constants';
+import { ADD_TASK, DELETE_TASK, DELETE_TASKS, UPDATE_TASK, TOGGLE_ALL_TASKS, CLEAR_COMPLETED } from './constants';
 
 const TODO_LOCAL_STORAGE = 'TODO_LOCAL_STORAGE';
 
@@ -59,6 +59,10 @@ const reducer = (state = taskList, action) => {
                 localStorage.setItem(TODO_LOCAL_STORAGE, JSON.stringify([...newTasksState]));
                 return [...newTasksState];
             }
+        }
+        case CLEAR_COMPLETED: {
+            const newTasksState = state.filter((task) => !task.isCompleted);
+            return [...newTasksState];
         }
         default:
             localStorage.setItem(TODO_LOCAL_STORAGE, JSON.stringify([...state]));

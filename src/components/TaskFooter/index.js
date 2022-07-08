@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Button from '../Button';
 const TaskFooter = (props) => {
-    const { isCompletedAll, taskNumber } = props;
+    const { isCompletedAll, taskNumber, clearBtnOnClick } = props;
     const filterOpts = [
         {
             filterName: 'All',
@@ -36,7 +36,7 @@ const TaskFooter = (props) => {
                     </li>
                 ))}
             </ul>
-            <Button className="absolute right-4" hoverUnderline>
+            <Button className="absolute right-4" hoverUnderline onClick={clearBtnOnClick}>
                 Clear completed
             </Button>
             <div className="overlappe-page absolute -bottom-1.5 h-1.5 w-[calc(100%_-_10px)] bg-inherit shadow-custom"></div>

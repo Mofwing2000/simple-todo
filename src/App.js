@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import TaskHeader from './components/TaskHeader';
 import TaskItem from './components/TaskItem';
 import Context from './Context';
-import { addTask, deleteTask, toggleAllTasks, updateTask } from './store/actions';
+import { addTask, deleteTask, toggleAllTasks, updateTask, clearCompleted } from './store/actions';
 import { useParams } from 'react-router-dom';
 
 import './App.css';
@@ -54,8 +54,12 @@ function App() {
         }
     };
 
-    const handleArrowBtnOnClick = (e) => {
+    const handleArrowBtnOnClick = () => {
         dispatch(toggleAllTasks());
+    };
+
+    const handleClearAllClick = () => {
+        dispatch(clearCompleted());
     };
 
     return (
@@ -85,7 +89,11 @@ function App() {
                         </li>
                     ))}
                 </ul>
-                <TaskFooter isCompletedAll={isCompletedAll} taskNumber={taskNumber}></TaskFooter>
+                <TaskFooter
+                    isCompletedAll={isCompletedAll}
+                    taskNumber={taskNumber}
+                    clearBtnOnClick={handleClearAllClick}
+                ></TaskFooter>
             </div>
         </div>
     );

@@ -1,4 +1,4 @@
-import { ADD_TASK, UPDATE_TASK, DELETE_TASK, DELETE_TASKS, TOGGLE_ALL_TASKS } from './constants';
+import { ADD_TASK, UPDATE_TASK, DELETE_TASK, DELETE_TASKS, TOGGLE_ALL_TASKS, CLEAR_COMPLETED } from './constants';
 
 export const addTask = (task) => {
     return {
@@ -34,5 +34,11 @@ export const deleteTasks = (indexArr) => {
 export const toggleAllTasks = () => {
     return {
         type: TOGGLE_ALL_TASKS,
+    };
+};
+
+export const clearCompleted = () => {
+    return {
+        type: CLEAR_COMPLETED,
     };
 };

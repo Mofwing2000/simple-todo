@@ -80,7 +80,7 @@ const TaskItem = (props) => {
                 </Button>
             </div>
             <input
-                className="task-edit hidden justify-center items-center ml-14 mr-0.5 h-full w-full text-taskItem px-4 py-4 outline-none border-solid border-gray-400 border shadow-customInner"
+                className="task-edit hidden box-border justify-center items-center ml-14 mr-0.5 h-full w-full text-taskItem px-4 py-4 outline-none border-solid border-gray-400 border shadow-customInner"
                 ref={taskInputRef}
                 defaultValue={taskTitle}
                 onInput={(e) => {

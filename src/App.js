@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useCallback, useMemo } from 'react';
 import TaskHeader from './components/TaskHeader';
 import TaskItem from './components/TaskItem';
 import Context from './Context';
@@ -16,7 +16,7 @@ function App() {
     const { filter } = useParams();
     const handleTaskHeaderKeyPress = (e) => {
         if (e.charCode === 13) {
-            if (e.target.value) {
+            if (e.target.value.trim() && !state.find((task) => task.title === e.target.value.trim())) {
                 dispatch(
                     addTask({
                         title: task,
@@ -36,7 +36,7 @@ function App() {
         dispatch(updateTask({ isCompleted: e.target.checked }, index));
     };
 
-    const handleDeleteIconClick = (e, index) => {
+    const handleDeleteIconClick = (index) => {
         dispatch(deleteTask(index));
     };
 
@@ -45,12 +45,12 @@ function App() {
     };
 
     const handleTaskInputOnBlur = (e, index) => {
-        if (!e.target.value) dispatch(deleteTask(index));
+        if (!e.target.value.trim()) dispatch(deleteTask(index));
     };
 
     const handleTaskInputOnKeyPress = (e, index) => {
         if (e.charCode === 13) {
-            if (!e.target.value) dispatch(deleteTask(index));
+            if (!e.target.value.trim()) dispatch(deleteTask(index));
         }
     };
 
@@ -63,7 +63,8 @@ function App() {
     };
 
     return (
-        <div className="App pt-10">
+        <div className="App">
+            <h1 className="text-[#af2f2f26] text-center text-[100px] font-thin leading-none mt-4 mb-3">todos</h1>
             <div className="wrapper mx-auto shadow-custom w-96 w-appWidth">
                 <TaskHeader
                     onHeaderKeyPress={handleTaskHeaderKeyPress}
@@ -74,29 +75,35 @@ function App() {
                     isCompletedAll={isCompletedAll}
                 ></TaskHeader>
                 <ul>
-                    {state.map((task, index) => (
-                        <li key={index}>
-                            <TaskItem
-                                taskTitle={task.title}
-                                checked={task.isCompleted}
-                                taskCheckboxOnChange={(e) => handleTaskCheckboxOnChange(e, index)}
-                                deleteIconClick={(e) => handleDeleteIconClick(e, index)}
-                                taskInputOnInput={(e) => handleTaskInputOnInput(e, index)}
-                                taskInputOnBlur={(e) => handleTaskInputOnBlur(e, index)}
-                                taskInputOnKeyPress={(e) => handleTaskInputOnKeyPress(e, index)}
-                                taskFilter={filter}
-                            />
-                        </li>
-                    ))}
+                    {useMemo(() => {
+                        return state.map((task, index) => (
+                            <li key={index}>
+                                <TaskItem
+                                    taskTitle={task.title}
+                                    checked={task.isCompleted}
+                                    taskCheckboxOnChange={(e) => handleTaskCheckboxOnChange(e, index)}
+                                    deleteIconClick={() => handleDeleteIconClick(index)}
+                                    taskInputOnInput={(e) => handleTaskInputOnInput(e, index)}
+                                    taskInputOnBlur={(e) => handleTaskInputOnBlur(e, index)}
+                                    taskInputOnKeyPress={(e) => handleTaskInputOnKeyPress(e, index)}
+                                    taskFilter={filter}
+                                />
+                            </li>
+                        ));
+                    })}
                 </ul>
-                <TaskFooter
-                    isCompletedAll={isCompletedAll}
-                    taskNumber={taskNumber}
-                    clearBtnOnClick={handleClearAllClick}
-                ></TaskFooter>
+                {
+                    <TaskFooter
+                        isCompletedAll={isCompletedAll}
+                        activeTaskNumber={state.filter((task) => !task.isCompleted).length}
+                        clearBtnOnClick={handleClearAllClick}
+                    ></TaskFooter>
+                }
             </div>
         </div>
     );
 }
 
 export default App;
+
+//Note: Xuwr lys o copmonent day vao store

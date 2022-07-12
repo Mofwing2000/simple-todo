@@ -1,10 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap');
+/* @import url('./assests/font/Helvetica-Neue-Font/HelveticaNeueLTW0697BlkCnObl/HelveticaNeue.ttf'); */
+@font-face {
+    font-family: 'Helvetica Neue';
+    src: url('./assests/font/helveticaneue/HelveticaNeueMedium.ttf');
+}
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 html {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Helvetica Neue', Helvetica, sans-serif;
     font-size: 100%;
+    color: #4d4d4d;
 }

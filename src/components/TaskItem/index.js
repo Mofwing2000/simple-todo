@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, memo } from 'react';
 import Button from '../Button';
 
 const TaskItem = (props) => {
@@ -6,17 +6,17 @@ const TaskItem = (props) => {
         taskTitle,
         checked,
         taskCheckboxOnChange,
-        deleteIconClick,
-        taskInputOnInput,
         taskInputOnBlur,
+        taskInputOnInput,
         taskInputOnKeyPress,
+        deleteIconClick,
         taskFilter,
     } = props;
     const taskInputRef = useRef();
     const taskItemRef = useRef();
     let isRender = true;
 
-    const handleTaskDoubleClick = (e) => {
+    const handleTaskDoubleClick = () => {
         setEditing();
         taskInputRef.current.focus();
     };
@@ -52,24 +52,30 @@ const TaskItem = (props) => {
             isRender = true;
     }
 
+    console.log('re-render');
+
     return (
         <div className={`flex items-center border-b border-solid border-gray-200 ${isRender ? 'flex' : 'hidden'}`}>
             <div
-                className="task-item relative flex justify-between items-center w-full py-[17px] pl-2 pr-4 group"
+                className="task-item relative flex justify-between items-center w-full py-[15px] pl-2 pr-4 group "
                 ref={taskItemRef}
                 onDoubleClick={handleTaskDoubleClick}
             >
                 <input
-                    className={`flex justify-center items-center absolute left-3 inline-block w-10 h-10 outline-none rounded-full appearance-none border-solid border-slate-200 border-2 ${
+                    className={`flex justify-center items-center absolute left-3 inline-block w-8 h-8 outline-none rounded-full appearance-none ${
                         checked
-                            ? `completed after:content-['✔'] after:flex after:justify-center after:items-center after:text-2xl border-lime-400`
-                            : ``
+                            ? `completed border-slate-300 border-solid border after:content-['✔'] after:flex after:justify-center after:items-center after:text-2xl`
+                            : `border-solid border-slate-200 border`
                     }`}
                     type="checkbox"
                     defaultChecked={checked}
                     onChange={taskCheckboxOnChange}
                 />
-                <p className={`ml-16 flex-1 text-left text-taskItem ${checked ? 'text-gray-300 line-through' : ''}`}>
+                <p
+                    className={`ml-16 flex-1 text-left text-taskItem transition-all duration-300 ${
+                        checked ? 'text-gray-300 line-through' : ''
+                    }`}
+                >
                     {taskTitle}
                 </p>
                 <Button>
@@ -80,12 +86,11 @@ const TaskItem = (props) => {
                 </Button>
             </div>
             <input
-                className="task-edit hidden box-border justify-center items-center ml-14 mr-0.5 h-full w-full text-taskItem px-4 py-4 outline-none border-solid border-gray-400 border shadow-customInner"
+                className="task-edit hidden box-border justify-center items-center ml-14 mr-0.5 h-full w-full text-taskItem px-4 py-[14.5px] outline-none border-solid border-gray-400 border shadow-customInner"
                 ref={taskInputRef}
                 defaultValue={taskTitle}
                 onInput={(e) => {
                     taskInputOnInput(e);
-                    //setEditing();
                 }}
                 onBlur={(e) => {
                     taskInputOnBlur(e);
@@ -102,4 +107,4 @@ const TaskItem = (props) => {
     );
 };
 
-export default TaskItem;
+export default memo(TaskItem);

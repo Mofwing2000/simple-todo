@@ -62,6 +62,7 @@ const reducer = (state = taskList, action) => {
         }
         case CLEAR_COMPLETED: {
             const newTasksState = state.filter((task) => !task.isCompleted);
+            localStorage.setItem(TODO_LOCAL_STORAGE, JSON.stringify([...newTasksState]));
             return [...newTasksState];
         }
         default:

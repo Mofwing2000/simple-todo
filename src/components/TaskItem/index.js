@@ -52,8 +52,6 @@ const TaskItem = (props) => {
             isRender = true;
     }
 
-    console.log('re-render');
-
     return (
         <div className={`flex items-center border-b border-solid border-gray-200 ${isRender ? 'flex' : 'hidden'}`}>
             <div
@@ -64,7 +62,7 @@ const TaskItem = (props) => {
                 <input
                     className={`flex justify-center items-center absolute left-3 inline-block w-8 h-8 outline-none rounded-full appearance-none ${
                         checked
-                            ? `completed border-slate-300 border-solid border after:content-['✔'] after:flex after:justify-center after:items-center after:text-2xl`
+                            ? `completed border-slate-300 border-solid border after:content-['✔'] after:text-green-300 after:flex after:justify-center after:items-center after:text-2xl`
                             : `border-solid border-slate-200 border`
                     }`}
                     type="checkbox"

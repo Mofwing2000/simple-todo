@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 const TaskHeader = (props) => {
     const { onHeaderKeyPress, task, onHeaderChange, arrowBtnOnClick, taskNumber, isCompletedAll } = props;
-
+    console.log(isCompletedAll);
+    console.log('re');
     return (
         <div
             className={`task-header relative p-4 flex justify-between items-center ${
@@ -11,7 +12,7 @@ const TaskHeader = (props) => {
         >
             <i
                 className={`fa-solid fa-chevron-down ${taskNumber === 0 ? 'hidden' : 'absolute left-5'} text-xl ${
-                    isCompletedAll ? '' : 'text-gray-300'
+                    isCompletedAll ? 'text-gray-500' : 'text-gray-200'
                 }`}
                 onClick={arrowBtnOnClick}
             ></i>
@@ -26,4 +27,4 @@ const TaskHeader = (props) => {
     );
 };
 
-export default TaskHeader;
+export default memo(TaskHeader);

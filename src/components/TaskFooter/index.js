@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Button from '../Button';
 const TaskFooter = (props) => {
-    const { activeTaskNumber, clearBtnOnClick } = props;
+    const { activeTaskNumber, clearBtnOnClick, isNotCompleteAll } = props;
     const filterOpts = [
         {
             filterName: 'All',
@@ -17,6 +17,7 @@ const TaskFooter = (props) => {
             location: '/completed',
         },
     ];
+
     return (
         <div className="task-footer flex justify-center item-center p-2.5 text-sm font-light text-gray-400 relative">
             <span className="task-count absolute left-4">{activeTaskNumber} items left</span>
@@ -36,9 +37,11 @@ const TaskFooter = (props) => {
                     </li>
                 ))}
             </ul>
-            <Button className="absolute right-4" hoverUnderline onClick={clearBtnOnClick}>
-                Clear completed
-            </Button>
+            {!isNotCompleteAll && (
+                <Button className="absolute right-4" hoverUnderline onClick={clearBtnOnClick}>
+                    Clear completed
+                </Button>
+            )}
             <div className="overlappe-page absolute -bottom-[5px] h-[5px] w-[calc(100%_-_6px)] bg-inherit shadow-custom"></div>
             <div className="overlappe-page absolute -bottom-[10px] h-[5px] w-[calc(100%_-_12px)] bg-inherit shadow-custom"></div>
         </div>
